@@ -1,0 +1,3 @@
+import { bomb } from "./1-bomb/bomb";
+
+bomb(Buffer.from([0x00, 0x09, 0xbf, 0x00, 0x00, 0x00]), "E", "./sd");

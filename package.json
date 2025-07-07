@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "scripts": {
+    "compile": "tsc && electron build/main"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.10",
+    "electron": "^37.2.0",
+    "typescript": "^5.8.3"
+  }
+}
