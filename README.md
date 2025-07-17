@@ -1,29 +1,37 @@
 <div align="center">
-<h3 align="center">jankbox</h3>
-
+  <h3 align="center">jankbox</h3>
   <p align="center">
     A mod manager for Wii softmodding, Project+ and Project M
   </p>
 </div>
 
 ## About the project
+
+<div align="center">
+  <img src="docs/jankbox-screenshot.png" alt="jankbox screenshot" width="200"/>
+</div>
+
 jankbox is a desktop application with the goal of simplifying Wii softmodding and installing mods such as [Project+](https://projectplusgame.com) and [Project M](https://en.wikipedia.org/wiki/Project_M).
 It helps users by managing files on their SD cards and USB drives.
 
 ## Built With
-* [Electron](https://www.electronjs.org/)
-* TypeScript
-* React
-* Tailwind CSS
+
+- [Electron](https://www.electronjs.org/)
+- TypeScript
+- React
+- Tailwind CSS
 
 ## Getting Started with Development
-* `npm install`
-* `npm run dev`
+
+- `npm install`
+- `npm run dev`
 
 ## Installation
+
 jankbox is in early development and there is no release or download for regular users yet.
 
 ## Roadmap
+
 - [ ] Individual features ("Advanced Mode")
   - [x] List removable drives
   - [x] Format SD/USB to FAT32
@@ -41,18 +49,22 @@ jankbox is in early development and there is no release or download for regular 
 - [ ] Download manager
 
 ## Contributing
+
 Pull requests are welcome.
 
 ## License
+
 Distributed under the MIT license. See `LICENSE` for more information.
 
 ## Contact
+
 Function - [@Function on Mastodon](https://norden.social/@function) - function (at) mailbox (dot) org
 
 ## Acknowledgments
-* [wiibrew.org](https://wiibrew.org/)
-* [Letterbomb / please.hackmii.com by fail0verflow](https://github.com/fail0verflow/letterbomb)
-* [NinjaCheetah](https://ninjacheetah.dev/)
-* [libWiiPy by NinjaCheetah](https://github.com/NinjaCheetah/libWiiPy)
-* [ModMii by XFlak](https://github.com/modmii)
-* [Nintendo Homebrew Discord](https://discord.gg/C29hYvh)
+
+- [wiibrew.org](https://wiibrew.org/)
+- [Letterbomb / please.hackmii.com by fail0verflow](https://github.com/fail0verflow/letterbomb)
+- [NinjaCheetah](https://ninjacheetah.dev/)
+- [libWiiPy by NinjaCheetah](https://github.com/NinjaCheetah/libWiiPy)
+- [ModMii by XFlak](https://github.com/modmii)
+- [Nintendo Homebrew Discord](https://discord.gg/C29hYvh)
