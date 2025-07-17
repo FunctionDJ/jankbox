@@ -53,7 +53,7 @@ const API = {
         "-FileSystem FAT32",
         "-AllocationUnitSize 32768",
         "-NewFileSystemLabel",
-        "CRIMEBOX_SD",
+        "JANKBOX_SD",
       ].join(" "),
     ),
   bomb: letterbomb,
