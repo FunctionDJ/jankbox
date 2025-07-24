@@ -1,0 +1,31 @@
+{
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "pedantic": "error",
+    "perf": "error",
+    "restriction": "error",
+    "style": "error"
+  },
+  "rules": {
+    "oxc/no-async-await": "off",
+    "no-console": "off",
+    "yoda": "error",
+    "unicorn/filename-case": "off",
+    "no-magic-numbers": "off",
+    "unicorn/number-literal-case": "off",
+    "unicorn/no-null": "off",
+    "max-params": "off",
+    "no-await-in-loop": "off",
+    "unicorn/numeric-separators-style": "off",
+    "max-lines-per-function": "off",
+    "explicit-function-return-type": "off",
+    "sort-keys": "off",
+    "sort-imports": "off",
+    "no-ternary": "off",
+    "no-undefined": "off",
+    "no-continue": "off",
+    "no-rest-spread-properties": "off",
+    "no-array-reduce": "off"
+  }
+}

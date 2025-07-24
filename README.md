@@ -45,6 +45,7 @@ jankbox is in early development and there is no release or download for regular 
   - [ ] Verify game ISO, split to WBFS files, copy to USB
   - [ ] Set up USB Loader GX for P+ or PM
   - [ ] Project+ configurator (Gecko codes)
+  - [ ] Set up Slippi Nitendont + game ISO verification and copying
 - [ ] Installation wizard ("Guided Mode")
 - [ ] Download manager
 

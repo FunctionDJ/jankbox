@@ -1,13 +1,15 @@
+import { ABW } from "./array-buffer-wrapper.ts";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { readArrayBuffer } from "./buffer-utils";
 
-export const fetchNUS = async (title: string) => {
+export const fetchNUS = async (title: string): Promise<ABW> => {
   const cache = `./.nuscache/${title}.cb`;
 
   try {
-    return readArrayBuffer(cache);
-  } catch {}
+    return await ABW.fromFile(cache);
+  } catch {
+    // assume error means cache miss instead of e.g. permissions error
+  }
 
   console.log("fetching uncached", title);
 
@@ -21,5 +23,5 @@ export const fetchNUS = async (title: string) => {
   const buffer = await response.arrayBuffer();
   await fs.mkdir(path.dirname(cache), { recursive: true });
   await fs.writeFile(cache, Buffer.from(buffer));
-  return buffer;
+  return new ABW(buffer);
 };

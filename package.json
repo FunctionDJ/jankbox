@@ -22,6 +22,8 @@
     "@vitejs/plugin-react": "^4.6.0",
     "electron": "^37.2.0",
     "electron-vite": "^4.0.0",
+    "fast-xml-parser": "^5.2.5",
+    "oxlint": "^1.7.0",
     "prettier": "^3.6.2",
     "prettier-plugin-classnames": "^0.8.1",
     "prettier-plugin-tailwindcss": "^0.6.13",

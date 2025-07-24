@@ -1,39 +1,48 @@
-import { pad } from "./buffer-utils.ts";
-import { fetchNUS } from "./fetchNUS.ts";
+import type { ABW } from "./array-buffer-wrapper.ts";
+import { fetchNUS } from "./fetch-nus.ts";
 
-const align64 = (n: number) => (n % 64 === 0 ? n : n + (64 - (n % 64)));
+export const align64 = (num: number) => {
+  if (num % 64 === 0) {
+    return num;
+  }
 
-export const getContentSizeForHeader = (tmd: ArrayBuffer) => {
-  const view = new DataView(tmd);
+  return num + (64 - (num % 64));
+};
+
+export const getContentSizeForHeader = (tmd: ABW) => {
+  const view = new DataView(tmd.buf.buffer);
   let sum = 0;
 
-  for (let i = 0; i < view.getUint16(0x1de); i++) {
-    const partLength = view.getUint32(0x1e4 + 36 * i + 12);
-    const isLast = i === view.getUint16(0x1de) - 1;
-    sum += isLast ? partLength : align64(partLength);
+  for (let index = 0; index < view.getUint16(0x1de); index += 1) {
+    const offset = 0x1e4 + 36 * index + 12;
+    const partLength = view.getUint32(offset);
+    const isLast = index === view.getUint16(0x1de) - 1;
+
+    if (isLast) {
+      sum += partLength;
+    } else {
+      sum += align64(partLength);
+    }
   }
 
   return sum;
 };
 
-export const getContentPartsForWAD = async (
-  tmd: ArrayBuffer,
-  titleId: string,
-) => {
+export const getContentPartsForWAD = async (tmd: ABW, titleId: string) => {
   // titleId can alternatively be read from 0x18c from tmd (8 bytes)
-  const view = new DataView(tmd);
+  const view = new DataView(tmd.buf.buffer);
 
-  const parts = [];
+  const partsPromises: Promise<ABW>[] = [];
 
-  for (let i = 0; i < view.getUint16(0x1de); i++) {
+  for (let index = 0; index < view.getUint16(0x01_de); index += 1) {
     const contentId = view
-      .getUint32(0x1e4 + i * 0x24)
+      .getUint32(0x01_e4 + index * 0x24)
       .toString(16)
       .padStart(8, "0");
 
-    const raw = await fetchNUS(`${titleId}/${contentId}`);
-    parts.push(pad(raw, 64));
+    partsPromises.push(fetchNUS(`${titleId}/${contentId}`));
   }
 
-  return parts;
+  const parts = await Promise.all(partsPromises);
+  return parts.map((abw): ABW => abw.pad(64));
 };

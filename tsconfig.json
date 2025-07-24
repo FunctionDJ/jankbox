@@ -3,7 +3,7 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "react-jsx",
     "target": "es2022",
-    "lib": ["es2023", "DOM"],
+    "lib": ["es2023", "DOM", "DOM.Iterable"],
     "module": "preserve",
     "strict": true,
     "skipLibCheck": true,

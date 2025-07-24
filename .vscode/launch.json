@@ -5,7 +5,6 @@
       "type": "node",
       "request": "launch",
       "name": "Node TS",
-      "runtimeArgs": ["--experimental-strip-types"],
       "skipFiles": ["<node_internals>/**"],
       "program": "${file}"
     }
