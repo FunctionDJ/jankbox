@@ -36,6 +36,7 @@ jankbox is in early development and there is no release or download for regular 
   - [x] List removable drives
   - [x] Format SD/USB to FAT32
   - [x] Generate and copy Letterbomb files to SD card
+  - [ ] Replace current bundled Letterbomb/HackMii/HBC Installer binaries with Download manager
   - [x] Download IOS 56 and create a WAD file
   - [ ] Patch IOS 56 with d2x cIOS
   - [ ] Set up a WAD manager homebrew app for 1-click d2x installation
