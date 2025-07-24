@@ -1,11 +1,11 @@
-import { ABW } from "../src/preload/nus/array-buffer-wrapper.ts";
+import { ABW } from "./array-buffer-wrapper.ts";
 
 interface Signed {
   signature: ABW;
   dump(): ABW;
 }
 
-export const fakeSign = (obj: Signed, intFunc: (int: number) => void) => {
+export const fakesign = (obj: Signed, mutationFn: (int: number) => void) => {
   obj.signature = new ABW(new Uint8Array(256));
   let currentInt = 0;
   let testHash = new ABW();
@@ -13,7 +13,7 @@ export const fakeSign = (obj: Signed, intFunc: (int: number) => void) => {
   while (testHash.buf[0] !== 0x00) {
     currentInt += 1;
 
-    intFunc(currentInt);
+    mutationFn(currentInt);
 
     if (currentInt > 65535) {
       throw new Error("object could not be fakesigned (overflow)");

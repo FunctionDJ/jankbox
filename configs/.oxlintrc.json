@@ -26,6 +26,7 @@
     "no-undefined": "off",
     "no-continue": "off",
     "no-rest-spread-properties": "off",
-    "no-array-reduce": "off"
+    "no-array-reduce": "off",
+    "prefer-string-raw": "off"
   }
 }

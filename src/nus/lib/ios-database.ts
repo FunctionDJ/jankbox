@@ -1,5 +1,3 @@
-// oxlint-disable numeric-separators-style
-// oxlint-disable sort-keys
 export interface IOSEntry {
   TID: string;
   Versions: Record<string, number[]>;

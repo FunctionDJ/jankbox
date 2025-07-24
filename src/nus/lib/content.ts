@@ -40,6 +40,7 @@ export const getContentPartsForWAD = async (tmd: ABW, titleId: string) => {
       .toString(16)
       .padStart(8, "0");
 
+    // TODO i think i actually need to fetch /contentid/iosVersion or something
     partsPromises.push(fetchNUS(`${titleId}/${contentId}`));
   }
 

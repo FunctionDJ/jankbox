@@ -1,24 +1,5 @@
-import { ABW } from "../src/preload/nus/array-buffer-wrapper.ts";
-import type { ContentRecord } from "./content-record.ts";
-import crypto from "node:crypto";
-
-const titleCrypto = (
-  direction: "encrypt" | "decrypt",
-  args: {
-    iv: ABW;
-    key: ABW;
-    data: ABW;
-  },
-): ABW => {
-  const cipherFunction =
-    direction === "encrypt" ? crypto.createCipheriv : crypto.createDecipheriv;
-
-  const cipher = cipherFunction("aes-128-cbc", args.key.buf, args.iv.buf);
-
-  return new ABW(cipher.update(args.data.buf)).concatenate(
-    new ABW(cipher.setAutoPadding(false).final()),
-  );
-};
+import { ABW } from "./array-buffer-wrapper.ts";
+import { nusCrypto } from "./nus-crypto.ts";
 
 const getCommonKey = (commonKeyIndex: number) => {
   switch (commonKeyIndex) {
@@ -48,9 +29,9 @@ export const createTicket = (buf: ABW) => {
     throw new Error("dev tickets not supported yet");
   }
 
-  const titleKeyDecrypted = titleCrypto("decrypt", {
+  const titleKeyDecrypted = nusCrypto("decrypt", {
     data: buf.read(0x1bf, 16),
-    iv: buf.read(0x1dc, 8).pad(16),
+    iv: buf.read(0x1dc, 8),
     key: getCommonKey(view.getUint8(0x1f1)),
   });
 
@@ -59,8 +40,15 @@ export const createTicket = (buf: ABW) => {
     titleId: buf.read(0x1dc, 8),
     titleVersion: view.getUint16(0x1e6),
     commonKeyIndex: view.getUint8(0x1f1),
+    titleKeyDecrypted,
     unknown2: buf.read(0x1f2, 48),
     dump() {
+      const titleKeyEncrypted = nusCrypto("encrypt", {
+        data: titleKeyDecrypted,
+        iv: this.titleId,
+        key: getCommonKey(this.commonKeyIndex),
+      });
+
       return buf
         .read(0, 4)
         .concatenate(this.signature)
@@ -69,11 +57,7 @@ export const createTicket = (buf: ABW) => {
           signatureIssuer,
           buf.read(0x180, 61),
           ABW.fromInt(2, 0),
-          titleCrypto("encrypt", {
-            data: titleKeyDecrypted,
-            iv: this.titleId.pad(16),
-            key: getCommonKey(this.commonKeyIndex),
-          }),
+          titleKeyEncrypted,
           ABW.fromInt(1, 0),
           buf.read(0x1d0, 8),
           buf.read(0x1db, 4),
@@ -87,23 +71,6 @@ export const createTicket = (buf: ABW) => {
           ABW.fromInt(2, 0),
           buf.slice(0x264, 0x2a4),
         );
-    },
-    encrypt: (decryptedContent: ABW, contentIndex: number) =>
-      titleCrypto("encrypt", {
-        data: decryptedContent.pad(16),
-        iv: ABW.fromInt(2, contentIndex).pad(16),
-        key: titleKeyDecrypted,
-      }),
-    decrypt: (record: ContentRecord, contentIndex: number) => {
-      const decrypted = titleCrypto("decrypt", {
-        data: record.encryptedContent.pad(16),
-        iv: ABW.fromInt(2, contentIndex).pad(16),
-        key: titleKeyDecrypted,
-      }).slice(0, record.size);
-
-      decrypted.assertHash(record.hash.toHex());
-
-      return decrypted;
     },
   };
 };

@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 export const fetchNUS = async (title: string): Promise<ABW> => {
-  const cache = `./.nuscache/${title}.cb`;
+  const cache = `./.nuscache/${title}`;
 
   try {
     return await ABW.fromFile(cache);

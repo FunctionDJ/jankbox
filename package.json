@@ -3,7 +3,7 @@
   "type": "module",
   "main": "./out/main/main.js",
   "scripts": {
-    "dev": "electron-vite --watch"
+    "dev": "electron-vite -c ./configs/electron.vite.config.ts --watch"
   },
   "prettier": {
     "plugins": [

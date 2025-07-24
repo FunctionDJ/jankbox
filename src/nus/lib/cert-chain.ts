@@ -9,11 +9,8 @@ export const fetchCertChain = async () => {
   ]);
 
   const certChainNew = cetk
-    .slice(0x02_a4 + 768)
-    .concatenate(
-      tmd.slice(0x03_28, 0x03_28 + 768),
-      cetk.slice(0x02_a4, 0x02_a4 + 768),
-    );
+    .slice(0x2a4 + 768)
+    .concatenate(tmd.slice(0x328, 0x328 + 768), cetk.slice(0x2a4, 0x2a4 + 768));
 
   certChainNew.assertHash("ace0f15d2a851c383fe4657afc3840d6ffe30ad0");
   return certChainNew;
