@@ -37,7 +37,6 @@ const contentWithPatchesSchema = z.strictObject({
 
 const ciosgroupSchema = z.object({
   name: z.string(),
-  version: z.string(),
   base: z.array(
     z.object({
       ios: z.coerce.number(),

@@ -12,6 +12,7 @@ import path from "node:path";
 export const buildCios = async (params: {
   baseIos: IOSEntry;
   iosVersion: number;
+  ciosMapsXMLFile: string;
   ciosName: string;
   ciosModulesFolder: string;
   titleVersion: number;
@@ -26,7 +27,11 @@ export const buildCios = async (params: {
     ticket,
   );
 
-  const targetBase = await getTargetBase(tmd, params.ciosName);
+  const targetBase = await getTargetBase(
+    params.ciosMapsXMLFile,
+    tmd,
+    params.ciosName,
+  );
 
   for (const contentXML of targetBase.content) {
     if (!("patch" in contentXML)) {

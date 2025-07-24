@@ -9,14 +9,13 @@ const parser = new XMLParser({
   isArray: (_tagName, _jPath, _isLeafNode, isAttribute) => !isAttribute,
 });
 
-export const getTargetBase = async (tmd: TMD, ciosName: string) => {
+export const getTargetBase = async (
+  ciosMapsXMLFile: string,
+  tmd: TMD,
+  ciosName: string,
+) => {
   const providedBase = Number.parseInt(tmd.titleId.slice(-2), 16);
-
-  const xmlString = await fs.readFile(
-    "C:\\ModMii\\Support\\d2xModules\\ciosmaps.xml",
-    "utf8",
-  );
-
+  const xmlString = await fs.readFile(ciosMapsXMLFile, "utf8");
   const xml = parser.parse(xmlString);
   const { ciosmaps } = ciosmapsSchema.parse(xml);
 
